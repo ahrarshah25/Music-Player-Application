@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Harmony Music Player</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-music"></i>
+                    <span>Harmony</span>
+                </div>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active" data-section="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </li>
+                    <li class="nav-item" data-section="browse">
+                        <i class="fas fa-search"></i>
+                        <span>Browse Songs</span>
+                    </li>
+                    <li class="nav-item" data-section="liked">
+                        <i class="fas fa-heart"></i>
+                        <span>Liked Songs</span>
+                    </li>
+                    <li class="nav-item" data-section="playlists">
+                        <i class="fas fa-list"></i>
+                        <span>Your Playlists</span>
+                    </li>
+                    <li class="nav-item" data-section="profile">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="current-playing">
+                <div class="playing-cover">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="playing-info">
+                    <h4>Not Playing</h4>
+                    <p>Select a song</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="globalSearch" placeholder="Search across dashboard...">
+                </div>
+                
+                <div class="user-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </button>
+                    <div class="user-dropdown">
+                        <div class="user-avatar" id="userAvatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <a href="#" id="userNameDisplay">Loading...</a>
+                            <a href="#" id="userEmailDisplay">...</a>
+                            <hr>
+                            <a href="#" class="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-sections">
+                <section class="content-section active" id="dashboard-section">
+                    <h1 class="section-title">Welcome Back, <span id="welcomeName">User</span></h1>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="likedCount">0</h3>
+                                <p>Liked Songs</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-list"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="playlistCount">0</h3>
+                                <p>Playlists</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalSongs">0</h3>
+                                <p>Total Songs</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="listeningTime">0</h3>
+                                <p>Hours Listened</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-section">
+                        <h2 class="section-subtitle">Recently Played</h2>
+                        <div class="recent-grid" id="recentSongs"></div>
+                    </div>
+
+                    <div class="quick-actions">
+                        <h2 class="section-subtitle">Quick Actions</h2>
+                        <div class="actions-grid">
+                            <button class="action-btn" id="createPlaylistBtn">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Create New Playlist</span>
+                            </button>
+                            <button class="action-btn" id="browseSongsBtn">
+                                <i class="fas fa-search"></i>
+                                <span>Browse Songs</span>
+                            </button>
+                            <button class="action-btn" id="importSongsBtn">
+                                <i class="fas fa-upload"></i>
+                                <span>Import Songs</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section" id="browse-section">
+                    <div class="section-header">
+                        <h1 class="section-title">Browse Songs</h1>
+                        <p class="section-subtitle">Search and discover new music</p>
+                    </div>
+                    
+                    <div class="search-container">
+                        <div class="search-input-group">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="songSearch" placeholder="Search for songs, artists, or albums...">
+                            <button class="search-btn" id="searchBtn">
+                                <i class="fas fa-search"></i>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="search-results" id="searchResults">
+                        <div class="empty-state">
+                            <i class="fas fa-search"></i>
+                            <h3>Search for Songs</h3>
+                            <p>Enter a song name above to start browsing</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section" id="liked-section">
+                    <div class="section-header">
+                        <h1 class="section-title">Liked Songs</h1>
+                        <p class="section-subtitle">Your collection of favorite tracks</p>
+                    </div>
+
+                    <div class="liked-controls">
+                        <div class="search-wrapper">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="likedSearch" placeholder="Search in liked songs...">
+                        </div>
+                        <button class="clear-btn" id="clearLiked">
+                            <i class="fas fa-trash"></i>
+                            Clear All
+                        </button>
+                    </div>
+
+                    <div class="songs-list" id="likedSongsList">
+                        <div class="empty-state">
+                            <i class="fas fa-heart"></i>
+                            <h3>No Liked Songs Yet</h3>
+                            <p>Start browsing and like some songs!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section" id="playlists-section">
+                    <div class="section-header">
+                        <h1 class="section-title">Your Playlists</h1>
+                        <p class="section-subtitle">Create and manage your music collections</p>
+                    </div>
+
+                    <div class="playlists-actions">
+                        <button class="create-playlist-btn" id="newPlaylistBtn">
+                            <i class="fas fa-plus"></i>
+                            Create New Playlist
+                        </button>
+                    </div>
+
+                    <div class="playlists-grid" id="playlistsGrid">
+                        <div class="empty-state">
+                            <i class="fas fa-list"></i>
+                            <h3>No Playlists Yet</h3>
+                            <p>Create your first playlist to get started!</p>
+                        </div>
+                    </div>
+
+                    <div class="playlist-songs-section">
+                        <h2 class="section-subtitle" id="selectedPlaylistTitle">Select a Playlist</h2>
+                        
+                        <div class="playlist-songs-controls">
+                            <div class="search-wrapper">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="playlistSongSearch" placeholder="Search in playlist...">
+                            </div>
+                            <button class="remove-song-btn" id="removeSongBtn" style="display: none;">
+                                <i class="fas fa-trash"></i>
+                                Remove Selected
+                            </button>
+                        </div>
+
+                        <div class="songs-list" id="playlistSongsList">
+                            <div class="empty-state">
+                                <i class="fas fa-music"></i>
+                                <h3>No Playlist Selected</h3>
+                                <p>Select a playlist to view its songs</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section" id="profile-section">
+                    <div class="section-header">
+                        <h1 class="section-title">Your Profile</h1>
+                        <p class="section-subtitle">Manage your account settings</p>
+                    </div>
+
+                    <div class="profile-container">
+                        <div class="profile-card">
+                            <div class="profile-header">
+                                <div class="avatar-upload">
+                                    <div class="avatar-preview" id="avatarPreview">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                                    <button class="upload-btn" id="uploadAvatarBtn">
+                                        <i class="fas fa-camera"></i>
+                                        Change Photo
+                                    </button>
+                                </div>
+                                
+                                <div class="profile-info">
+                                    <h2 id="profileName">Loading...</h2>
+                                    <p id="profileEmail">...</p>
+                                    <div class="profile-stats">
+                                        <span><i class="fas fa-calendar"></i> Joined: <span id="joinDate">...</span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="profile-form">
+                                <h3 class="form-title">Update Profile</h3>
+                                
+                                <div class="form-group">
+                                    <label for="updateName">
+                                        <i class="fas fa-user"></i>
+                                        Display Name
+                                    </label>
+                                    <input type="text" id="updateName" placeholder="Enter your name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="updateEmail">
+                                        <i class="fas fa-envelope"></i>
+                                        Email Address
+                                    </label>
+                                    <input type="email" id="updateEmail" placeholder="Enter your email">
+                                </div>
+
+                                <div class="form-actions">
+                                    <button class="cancel-btn" id="cancelUpdateBtn">
+                                        Cancel
+                                    </button>
+                                    <button class="save-btn" id="saveProfileBtn">
+                                        <i class="fas fa-save"></i>
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="account-actions">
+                            <h3 class="form-title">Account Actions</h3>
+                            <div class="action-buttons">
+                                <button class="danger-btn" id="deleteAccountBtn">
+                                    <i class="fas fa-trash"></i>
+                                    Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="playlistModal">
+            <div class="modal-header">
+                <h3>Create New Playlist</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="playlistName">
+                        <i class="fas fa-heading"></i>
+                        Playlist Name
+                    </label>
+                    <input type="text" id="playlistName" placeholder="Enter playlist name">
+                </div>
+                <div class="form-group">
+                    <label for="playlistDescription">
+                        <i class="fas fa-align-left"></i>
+                        Description
+                    </label>
+                    <textarea id="playlistDescription" placeholder="Describe your playlist" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn close-modal">Cancel</button>
+                <button class="create-btn" id="createPlaylistModalBtn">Create Playlist</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@15.0.0/+esm"></script>
+</body>
+<script type="module" src="/js/dashboard.js"></script>
+</html>
