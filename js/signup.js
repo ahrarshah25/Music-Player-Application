@@ -3,14 +3,16 @@ console.log("JS Connected - Signup Via App Write!");
 import { createAppwriteClient } from "./appwriteClient.js";
 import { ID } from "https://cdn.jsdelivr.net/npm/appwrite@15.0.0/+esm";
 
-const { auth , client } = await createAppwriteClient();
-const user = await auth.get();
+// const { auth , client } = await createAppwriteClient();
+// const user = await auth.get();
 
-if(user){
-    window.location.href = "/dashboard"
-}
+// if(user){
+//     window.location.href = "/dashboard"
+// }
 
 async function userSignup() {
+    const { auth } = await createAppwriteClient();
+
     let userName = document.getElementById("userName").value.trim();
     let userEmail = document.getElementById("userEmail").value.trim();
     let userPassword = document.getElementById("userPassword").value.trim();

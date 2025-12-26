@@ -2,14 +2,11 @@ console.log("JS Connected - login Via App Write!");
 
 import { createAppwriteClient } from "./appwriteClient.js"
 
-const { auth } = await createAppwriteClient();
-const user = await auth.get();
-
-if(user){
-    window.location.href = "/dashboard"
-}
+// const { auth } = await createAppwriteClient();
 
 async function userLogin() {
+    const { auth } = await createAppwriteClient();
+
     let userEmail = document.getElementById("userEmail").value.trim();
     let userPassword = document.getElementById("userPassword").value.trim();
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
