@@ -562,7 +562,7 @@ const updateProfile = async () => {
     } catch (error) {
         console.error("Error updating profile:", error);
         Swal.fire({
-            title: "Error!",
+            title: "Errors!",
             text: error.message,
             icon: "error"
         });
